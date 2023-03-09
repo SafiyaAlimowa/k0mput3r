@@ -1,0 +1,16 @@
+import random
+from Hello import Question, Gra, Youtube, Tiktok, Lalala
+
+
+
+game = Gra()
+
+
+level_one_questions = Youtube.pobierz_pytania()
+level_two_questions = Tiktok.pobierz_pytania()
+level_three_questions = Lalala.pobierz_pytania()
+
+
+game.play(level_one_questions)
+game.play(level_two_questions)
+game.play(level_three_questions)
