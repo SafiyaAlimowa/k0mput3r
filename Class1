@@ -1,0 +1,199 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace nowe
+{
+
+    internal class Poczatek
+    {
+        public static void Polo() 
+        {
+            Console.WriteLine("Witaj w grze RPG!");
+            Console.WriteLine("Napisz swoją imię: ");
+            string imie = Console.ReadLine();
+            Class1.Lambo(imie);
+            Class2.Nazwa();
+        }
+
+            
+    }
+    internal class Class1
+    {
+        public static int[] lalals = { 100, 20, 10 };
+        public static string[] inven = { "pistolet", "karabin maszynowy" };
+        public static int invnum = inven.Length;
+        public static void Lambo(string playerName)
+        {
+            Console.WriteLine("Twoje statystyki: ");
+            Console.WriteLine($"Imię: {playerName} \nZdrowie: {lalals[0]} \nSiła ataku: {lalals[1]} \nObrona: {lalals[2]} \nPrzedmioty: {inven[0]}, {inven[1]}");
+        }
+    }
+    internal class Class2
+    {
+        public static void Nazwa()
+        {
+            while (true)
+            {
+                Console.WriteLine("\nCo chcesz zrobić?");
+                Console.WriteLine("1. Walcz z potworem");
+                Console.WriteLine("2. Odpocznij");
+                Console.WriteLine("3. Przejdź do innego miejsca");
+                Console.WriteLine("4. Zacząć od początku");
+                Console.WriteLine("5. Zakończ grę ");
+
+                int laminat = int.Parse(Console.ReadLine());
+
+                if (laminat == 1)
+                {
+                    Class3.Polina();
+                    
+                }
+                else if (laminat == 2)
+                {
+                    Odpocz();
+                }
+                else if (laminat == 3)
+                {
+                    Przemiesz();
+                }
+                else if (laminat == 4)
+                {
+                    Console.WriteLine("Zaczynasz od początku\n");
+                    Poczatek.Polo();
+
+                }
+                else if (laminat == 5)
+                {
+                    Console.WriteLine("Koniec gry.");
+                    Console.WriteLine("Dziękuję za grę!!!");
+                    Console.WriteLine("Mam nadzieje że ci się podobało.");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Nieprawidłowy wybór. Spróbuj ponownie.");
+                }
+            }
+        }
+        public static void Odpocz()
+        {
+            Console.WriteLine("\nOdpoczywasz...");
+            Console.WriteLine("Zdrowie zostało uleczono.");
+        }
+        public static void Przemiesz()
+        {
+            string[] miejsce = { "korytarz", "pokój 1", "pokój 2", "dwór" };
+            Random rand = new Random();
+            int randomIndex = rand.Next(miejsce.Length);
+            string losoweMiejsce = miejsce[randomIndex];
+            Console.WriteLine($"\nPrzechodzisz do: {losoweMiejsce}");
+        }
+    }
+    
+    public class Class3
+    {
+        public static void Polina()
+        {
+            int[] monHealth = { 50, 70, 30 };
+            int[] monAttackPower = { 10, 15, 8 };
+            int[] monDefense = { 5, 8, 3 };
+
+            int monumber = monHealth.Length;
+
+            Random por = new Random();
+            int randomex = por.Next(monDefense.Length);
+            int monDlos = monDefense[randomex];
+
+            
+            string[] monNames = { "Potwór 1", "Potwór 2", "Potwór 3" };
+            Console.WriteLine($"Wybierz potwora, z którym chcesz walczyć (1 - {monumber}): ");
+            int monind = int.Parse(Console.ReadLine());
+            int lll = monind - 1;
+            if (lll < 0 && lll >= monumber)
+            {
+                Console.WriteLine("Nieprawidłowy wybór potwora. Spróbuj ponownie.");
+                
+            }
+            Console.WriteLine($"\nWalczysz z potworem: {monNames[lll]}");
+
+            while (true)
+            {
+                bool gra = true;
+
+                if (gra)
+                {
+                    Console.WriteLine($"Twoje zdrowie: {Class1.lalals[0]}");
+                    Console.WriteLine($"Zdrowie potwora: {monHealth[2]}");
+                    Console.WriteLine("Co chcesz zrobić?");
+                    Console.WriteLine("1. Atakuj");
+                    Console.WriteLine("2. Użyj przedmiotu");
+                    Console.WriteLine("3. Uciekać (AAAAAA)");
+
+                    int costam = int.Parse(Console.ReadLine());
+                    if (costam == 1)
+                    {
+                        int szk = Class1.lalals[1] - monDlos;
+                        monHealth[2] -= szk;
+                        Console.WriteLine($"Zadałeś {szk} obrażeń.");
+                        if (Class1.lalals[2] <= 0)
+                        {
+                            Console.WriteLine("Pokonałeś potwora!");
+                            break;
+                        }
+                    }
+                    else if (costam == 2)
+                    {
+                        Console.WriteLine($"Wybierz przedmiot, który chcesz użyć (1 - {Class1.invnum}): ");
+                        int niew = int.Parse(Console.ReadLine()) - 1;
+
+                        if (niew >= 0 && niew < Class1.invnum)
+                        {
+                            Console.WriteLine($"Użyłeś przedmiotu: {Class1.inven[niew]}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Nieprawidłowy wybór przedmiotu.");
+                            Console.WriteLine("Spróbuj ponownie\n");
+                        }
+                    
+                    }
+                    else if (costam == 3)
+                    {
+                        Console.WriteLine("Uciekałeś");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nieprawidłowa akcja.");
+                        Console.WriteLine("Spróbuj ponownie \n");
+                    }
+                    gra = false;
+                }
+                Random selo = new Random();
+                int rndm = selo.Next(monDefense.Length);
+                int monAtt = monAttackPower[rndm];
+
+                int monsszk = monAtt - monDlos;
+                monsszk = Math.Max(0, monsszk);
+
+                Class1.lalals[0] -= monsszk;
+                Console.WriteLine($"Potwór zadał Ci {monsszk} obrażeń.");
+
+                if (Class1.lalals[0] <= 0)
+                {
+                    Console.WriteLine("Zginąłeś! Koniec gry.");
+                    Console.WriteLine("Dziękuję za grę!!!");
+                    Console.WriteLine("Mam nadzieje że ci się podobało.");
+                    
+                    break;
+                }
+            }
+            
+        }
+        
+    }
+
+}
+
